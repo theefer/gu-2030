@@ -61,7 +61,6 @@
         current.removeClass('present').addClass(direction);
 
         if (zone.hasClass('zone-now')) {
-            console.log("NOW")
             isNowZone = true;
         } else {
             isNowZone = false;
@@ -268,5 +267,9 @@
             paused = ! paused;
         }
 
+        var zero = e.keyCode == 48;
+        if (zero) {
+            $('.explainer-container').toggle();
+        }
     });
 })();

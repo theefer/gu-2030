@@ -25,29 +25,37 @@
     <!-- Add your site or application content here -->
     <div class="stage show-scene-1" data-scene="1">
         <div class="scene scene-1 is-current">
+            <div class="explainer-container" style="display: none">
+                <div class="explainer explainer-now">now</div>
+                <div class="explainer explainer-context">context</div>
+                <div class="explainer explainer-track">track</div>
+            </div>
             <div class="zones">
                 <div class="zone present middle">
                 </div>
                 <div class="zone zone-now up">
-                    <ul class="light-overlay container story-wrapper">
-                        <li class="story story--jupiter is-center">
+                    <ul class="container story-wrapper">
+                        <li class="light-overlay story story--jupiter is-center">
                             <div class="story-item story-item-quote">
                                 <blockquote>
                                     <div class="content">
-                                        <p>Another fantastic leap for mankind.</p>
+                                        <p>Another fantastic leap<br/>for mankind.</p>
                                     </div>
                                     <footer>Cmdr ZZZZ</footer>
                                 </blockquote>
                             </div>
-                            <div class="story-item story-item-main">
+                            <div class="story-item story-item-quote">
+                                <h3>Colonising planets or<br/>
+                                    caring for our own</h3>
+                                <p class="author">by Helen Myrr</p>
+                            </div>
+                            <div class="story-item story-item-main illustrated with-kicker jupiter-landing">
                                 <span class="kicker">live</span>
                                 <h2>Jupiter Landing</h2>
-                                <p class="">Crew initiates descent</p>
+                                <p class="trail">Crew initiates descent</p>
                             </div>
-                            <div class="story-item story-item-gallery">
-                                <ul>
-                                    IMAGES
-                                </ul>
+                            <div class="story-item story-item-gallery venus-gallery .illustrated">
+                                <h3>Gallery</h3>
                             </div>
                             <div class="story-item story-item-timeline">
                                 <h3>Space timeline</h3>
@@ -71,75 +79,88 @@
                                 </ul>
                             </div>
                         </li>
-                        <li class="story story-football is-center">
+                        <li class="light-overlay story story-football is-center">
                             <div class="story-item story-item-quote">
                                 <blockquote>
                                     <div class="content">
                                         <p>We're CRUSHING them!</p>
                                     </div>
-                                    <footer>Steph K.</footer>
+                                    <footer>
+                                        <img src="https://si0.twimg.com/profile_images/3424429799/0057e3f64974b4401937ef31ed929931.jpeg" class="avatar">
+                                        Steph K.
+                                    </footer>
                                 </blockquote>
                             </div>
                             <div class="story-item story-item-image">
                                 <img src="http://pac-12.com/portals/0/images/Football/instagram.jpg" height="160">
-                                <p class="author">@rastaben</p>
+                                <p class="twitter-handle">@rastaben</p>
                             </div>
-                            <div class="story-item story-item-main">
+                            <div class="story-item story-item-main illustrated with-kicker light-text">
                                 <span class="kicker">live</span>
-                                <h2>Man Utd <span class="sport-score">1-0</span> ManCity</h2>
+                                <h2>Man Utd<br/>
+                                    <span class="sport-score">1-0</span><br/>
+                                    ManCity</h2>
                             </div>
-                            <div class="story-item story-item-moment">
+                            <div class="story-item story-item-moment goal-gomez illustrated">
                                 <h3>Goal 17'</h3>
                                 <p>Gomez</p>
                             </div>
                         </li>
-                        <li class="story story-robots is-center">
+                        <li class="light-overlay story story-robots is-center">
                             <div class="story-item story-item-opinion">
-                                TITLE
-                                author
+                                <h3>Refusing their rights to those we created</h3>
+                                <p class="author">by Ian Robberts</p>
                             </div>
                             <div class="story-item story-item-quote-duel">
-                                QUOTE
-                                QUOTE
+                                <blockquote class="minor">
+                                    <div class="content">
+                                        <p>We created them; why can't we<br/>
+                                            love them, and marry them?</p>
+                                    </div>
+                                    <footer>Adam Asimov</footer>
+                                </blockquote>
+                                <div class="vs">vs</div>
+                                <blockquote class="minor">
+                                    <div class="content">
+                                        <p>Marriage is the union of a man and<br/>
+                                            a women (or two men, or two women).</p>
+                                    </div>
+                                    <footer>Pope Francis</footer>
+                                </blockquote>
                             </div>
-                            <div class="story-item story-item-main">
+                            <div class="story-item story-item-main illustrated">
                                 <h2>Referendum on robot marriage</h2>
-                                <p>Growing support as vote nears</p>
+                                <p class="trail">Growing support as vote nears</p>
                             </div>
                             <div class="story-item story-item-pro-cons">
                                 <div class="pro-cons pro-cons-pro">
-                                    <h3>Pros</h3>
+                                    <h3>In favour</h3>
                                     <ul>
-                                        IMAGES
+                                        <li>Equal rights for all beings</li>
+                                        <li>We owe it to them</li>
+                                        <li>Freedom to love</li>
                                     </ul>
                                 </div>
-                            </div>
-                            <div class="story-item story-item-timeline">
-                                <h3>Space timeline</h3>
-                                <ul class="timeline">
-                                    <li>
-                                        <strong>1961</strong>
-                                        <span>First man in space (Russia)</span>
-                                    </li>
-                                    <li>
-                                        <strong>1969</strong>
-                                        <span>Moon landing (USA)</span>
-                                    </li>
-                                    <li>
-                                        <strong>2021</strong>
-                                        <span>Mars mission (China)</span>
-                                    </li>
-                                    <li>
-                                        <strong>2030</strong>
-                                        <span>Jupiter landing (India)</span>
-                                    </li>
-                                </ul>
+                                <div class="pro-cons pro-cons-cons">
+                                    <h3>Against</h3>
+                                    <ul>
+                                        <li>Undermines the institution of marriage</li>
+                                        <li>What's next: marrying aliens?</li>
+                                        <li>Robots will take over the world</li>
+                                    </ul>
+                                </div>
                             </div>
                         </li>
                     </ul>
                 </div>
-                <div class="zone zone-track right">
-                    <div class="container">
+                <div class="zone zone-context right">
+                    <p>context</p>
+                </div>
+                <div class="zone zone-depth down">
+                    <p>depth</p>
+                </div>
+                <div class="zone zone-track left">
+                    <div class="left-container">
                         <div class="light-overlay match">
                             <div class="match__summary">
                                 <h2 class="type-3">Venezuela 2</h2>
@@ -152,12 +173,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="zone zone-context down">
-                    <p>context</p>
-                </div>
-                <div class="zone zone-depth left">
-                    <p>depth</p>
-                </div>
             </div>
         </div>
         <div class="scene scene-2">
@@ -167,10 +182,10 @@
                 <div class="zone zone-now up">
                     <p>now</p>
                 </div>
-                <div class="zone zone-track right">
+                <div class="zone zone-context right">
                     <div class="dark-overlay container">
                         <div class="grid">
-                            <h1>The Fever Ray at Shepherd's Bush Empire, London, UK</h1>
+                            <h1>Fever Ray &ndash; When I Grow Up</h1>
                             <div class="grid__item two-thirds">
                                 <div class="grid videos">
                                     <div class="grid__item one-half">
@@ -226,10 +241,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="zone zone-context down">
+                <div class="zone zone-depth down">
                     <p>depth</p>
                 </div>
-                <div class="zone zone-depth left">
+                <div class="zone zone-track left">
                     <p>track</p>
                 </div>
             </div>

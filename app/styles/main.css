@@ -179,6 +179,10 @@ a {
   display: block;
 }
 
+.left-container {
+  margin-left: 1%;
+}
+
 .light-overlay {
   background-color: hsla(0, 0%, 100%, 0.8);
   color: black;
@@ -191,6 +195,35 @@ a {
   box-shadow: 0 30px 70px hsla(0, 0%, 0%, 0.8);
 }
 
+
+.explainer {
+    font-family: "ff-enzo-web", sans-serif;
+    position: absolute;
+    font-size: 4em;
+    font-weight: bold;
+    background-color: rgba(220, 220, 220, 0.5);
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+.explainer-now {
+    top: 10px;
+    left: 50%;
+    width: 200px;
+    margin-left: -100px;
+    text-align: center;
+}
+.explainer-track {
+    left: 30px;
+    top: 50%;
+    height: 100px;
+    margin-top: -50px;
+}
+.explainer-context {
+    right: 30px;
+    top: 50%;
+    height: 100px;
+    margin-top: -50px;
+}
 
 .tweet {
   margin-bottom: 1em;
@@ -212,6 +245,9 @@ a {
   font-size: 0.8em;
 }
 
+.twitter-handle {
+  color: #6699aa;
+}
 
 
 .finger {
@@ -239,15 +275,15 @@ a {
     clear: both;
     /* width: 100%; */
     margin-top: 40px;
-    border: 1px solid red;
+    /* border: 1px solid red; */
     white-space: nowrap;
     /* overflow: hidden; */
     width: 2000px;
     position: relative;
-    text-align: center;
 
+  /* -webkit-transition: -webkit-perspective .4s ease; */
     transition-property: all;
-    transition-duration: 0.5s;
+    transition-duration: 0.2s;
     transition-duration: ease;
 }
 .story.is-left {
@@ -266,16 +302,33 @@ a {
     margin-left: 20px;
 }
 .story-item-main {
+    background-size: cover;
+}
+.with-kicker {
+    padding-right: 60px !important; /* in case of a live kicker */
+}
+
+.illustrated {
     padding: 5px 10px;
-    padding-right: 60px; /* in case of a live kicker */
+}
+
+.story-item p {
+    margin: 0;
+}
+
+.story-item h2,
+.story-item h3 {
+    margin: 0.2em;
 }
 
 
+.story:hover,
 .story.is-highlighted {
-    /* position: relative; */
-    /* top: -10px; */
-    /* left: -10px; */
-    box-shadow: 10px 10px 15px #999;
+    margin-top: 32px;
+    margin-left: -6px;
+    margin-bottom: 8px;
+    margin-right: 6px;
+    box-shadow: 8px 8px 12px #333;
 }
 
 
@@ -289,6 +342,16 @@ a {
     text-transform: capitalize;
 }
 
+.pro-cons {
+    float: left;
+}
+.pro-cons.pro-cons-pro {
+    text-align: right;
+    margin-right: 15px;
+    border-right: 4px solid #ccc;
+    padding-right: 15px;
+}
+
 .sport-score {
     font-weight: 700;
     color: white;
@@ -296,11 +359,67 @@ a {
     padding: 2px 5px;
 }
 
+.story-robots {
+    height: 200px;
+}
+
+.jupiter-landing {
+}
+
+.venus-gallery {
+    background: url(http://upload.wikimedia.org/wikipedia/en/8/8d/Rocky_Mars_Surface.jpeg) no-repeat;
+    background-size: cover;
+    height: 155px;
+    width: 230px;
+}
+
+.light-text {
+    color: #ddd;
+}
+
 .story-football .story-item-main {
     background: url(../images/football.jpg) no-repeat;
+    background-size: cover;
+    height: 185px;
+    width: 235px;
 }
 .story--jupiter .story-item-main {
     background: url(http://images.nationalgeographic.com/wpf/media-live/photos/000/578/overrides/mars-rover-landing-sequence-outside-atmosphere_57833_600x450.jpg) no-repeat;
+    background-size: cover;
+    height: 85px;
+    padding-top: 60px;
+}
+.story-robots .story-item-main {
+    background: url(http://farm4.static.flickr.com/3296/3119144658_b9dfe4a1b8.jpg) no-repeat;
+    background-size: cover;
+    height: 180px;
+}
+
+.trail {
+    background-color: rgba(220, 220, 220, 0.3);
+    padding: 2px 5px;
+}
+
+.avatar {
+    width: 35px;
+    height: 35px;
+    border-radius: 15px;
+    vertical-align: top;
+    border: 2px solid #ccc;
+}
+
+.vs {
+    color: #669;
+    text-align: center;
+    font-weight: bold;
+}
+
+.goal-gomez {
+    background: url(http://i.telegraph.co.uk/multimedia/archive/02547/Van-goal0_2547997b.jpg) no-repeat;
+    background-size: cover;
+    color: #eee;
+    height: 150px;
+    width: 235px;
 }
 
 ul, li {
@@ -309,15 +428,37 @@ ul, li {
     list-style-type: none;
 }
 
+blockquote {
+    margin: 0;
+}
 
+blockquote.minor {
+    font-size: 50%;
+}
+
+blockquote::before {
+    content: "“";
+    color: #bbbbcc;
+    position: absolute;
+    left: 40px;
+    top: -20%;
+    font-size: 1200%;
+    z-index: 3;
+}
 blockquote .content {
     font-family: serif;
-    font-size: 120%;
+    font-weight: bold;
+    font-size: 200%;
     font-style: italic;
+    z-index: 4;
+    position: relative;
+    text-align: right;
 }
-blockquote footer::before {
-    content: '- ';
-}
+/* blockquote footer::before { */
+/*     content: '- '; */
+/* } */
 blockquote footer {
     text-align: right;
+    color: #666;
+    font-size: 120%;
 }
