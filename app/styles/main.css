@@ -155,7 +155,7 @@ a {
 }
 
 .scene {
-  background-size: contain;
+  background-size: cover;
 }
 
 .scene-1 {
