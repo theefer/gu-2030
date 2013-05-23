@@ -1,5 +1,9 @@
 (function() {
 
+    $('.zone').each(function () {
+      var $slide = $(this);
+      $slide.css('top', ($slide.outerHeight() / 2) * -1);
+    });
 
     var numScenes = 2;
 
@@ -16,18 +20,25 @@
     }
 
     function moveZone(direction) {
-        var current = $('.stage .scene.is-current');
-            // switch(direction) {
-            // case 'left':
-            //     break;
-            // case 'right':
-            //     break;
-            // case 'up':
-            //     break;
-            // case 'down':
-            //     break;
-            // }
-        // TODO: ?
+        // @todo Current scene
+        var current = $('.stage .scene .zone.present');
+
+        var zones = current.siblings();
+        // Get the first one, as we may have two items that are in that direction
+        var zone = zones.filter('.' + direction).eq(0);
+
+        if (!current.hasClass('middle') && !zone.hasClass('middle')) { return; }
+
+        if (!zone.length) { return; }
+
+        zone.removeClass(direction).addClass('present');
+        var oppositeDirection = {
+          'left': 'right',
+          'right': 'left',
+          'up': 'down',
+          'down': 'up'
+        };
+        current.removeClass('present').addClass(oppositeDirection[direction]);
     }
 
     // Leap
