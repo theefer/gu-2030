@@ -2,6 +2,8 @@ var express = require('express');
 var request = require('request');
 var app = express();
 
+app.use(express.static('./app'));
+
 var LAST_FM_API_KEY = "853293f7ee9c53639dd414a77d67c684";
 
 app.get('/', function(req, res) {
