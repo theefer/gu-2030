@@ -1,7 +1,7 @@
 (function() {
 
     // Set default scene
-    var currentScene = $('.stage').find('.scene-1');
+    var currentScene = $('.stage').find('.scene.is-current');
 
     $('.zone').each(function () {
       var $slide = $(this);
@@ -11,11 +11,12 @@
     var numScenes = 2;
 
     function swapScene(offset) {
-        currentScene = $('.stage').data('scene');
-        var nextScene = Math.min(Math.max(currentScene + offset, 1), numScenes);
+        debugger
+        var currentSceneIndex = $('.stage').data('scene');
+        var nextScene = Math.min(Math.max(currentSceneIndex + offset, 1), numScenes);
         if (nextScene) {
-            $('.stage').removeClass('show-scene-' + currentScene);
-            $('.stage .scene-'+currentScene).removeClass('is-current');
+            $('.stage').removeClass('show-scene-' + currentSceneIndex);
+            $('.stage .scene-'+currentSceneIndex).removeClass('is-current');
             $('.stage').data('scene', nextScene);
             $('.stage').addClass('show-scene-' + nextScene);
             $('.stage .scene-'+nextScene).addClass('is-current');
