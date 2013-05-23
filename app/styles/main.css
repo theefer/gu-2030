@@ -158,19 +158,34 @@ a {
   background-size: contain;
 }
 
+.scene-1 {
+  background-image: url('http://farm1.staticflickr.com/150/350856151_ff90a40fe7_o.jpg');
+}
+
 .scene-2 {
   background-image: url('http://farm3.staticflickr.com/2651/3735776628_fe1f49d53c_o.jpg');
 }
 
-.overlay {
-  background-color: hsla(0, 0%, 0%, 0.8);
-  color: white;
+.light-overlay,
+.dark-overlay {
   border-radius: 10px;
   width: 70%;
   margin: auto;
   padding: 1em;
+}
+
+.light-overlay {
+  background-color: hsla(0, 0%, 100%, 0.8);
+  color: white;
+  box-shadow: 0 30px 70px hsla(0, 0%, 0%, 0.5);
+}
+
+.dark-overlay {
+  background-color: hsla(0, 0%, 0%, 0.8);
+  color: white;
   box-shadow: 0 30px 70px hsla(0, 0%, 0%, 0.8);
 }
+
 
 .tweet {
   margin-bottom: 1em;
