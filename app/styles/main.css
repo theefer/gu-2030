@@ -176,7 +176,7 @@ a {
 
 .light-overlay {
   background-color: hsla(0, 0%, 100%, 0.8);
-  color: white;
+  color: black;
   box-shadow: 0 30px 70px hsla(0, 0%, 0%, 0.5);
 }
 
