@@ -6,13 +6,6 @@ app.use(express.static('./app'));
 
 var LAST_FM_API_KEY = "853293f7ee9c53639dd414a77d67c684";
 
-app.get('/', function(req, res) {
-    var body = 'Hello World';
-    // res.setHeader('Content-Type', 'text/plain');
-    // res.setHeader('Content-Length', body.length);
-    res.send(body);
-});
-
 app.get('/api/recently_played/:user', function(req, res){
     var user = req.params.user;
     request({
