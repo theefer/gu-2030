@@ -169,9 +169,14 @@ a {
 .light-overlay,
 .dark-overlay {
   border-radius: 10px;
+  padding: 1em;
+  display: inline-block;
+}
+
+.container {
   width: 70%;
   margin: auto;
-  padding: 1em;
+  display: block;
 }
 
 .light-overlay {
