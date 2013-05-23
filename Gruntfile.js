@@ -17,10 +17,6 @@ module.exports = function (grunt) {
   grunt.initConfig({
     yeoman: yeomanConfig,
     watch: {
-      compass: {
-        files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
-        tasks: ['compass']
-      },
       livereload: {
         files: [
           '<%= yeoman.app %>/{,*/}*.html',
@@ -52,23 +48,6 @@ module.exports = function (grunt) {
         'Gruntfile.js',
         '<%= yeoman.app %>/scripts/{,*/}*.js'
       ]
-    },
-    compass: {
-      options: {
-        sassDir: '<%= yeoman.app %>/styles',
-        cssDir: '.tmp/styles',
-        imagesDir: '<%= yeoman.app %>/images',
-        javascriptsDir: '<%= yeoman.app %>/scripts',
-        fontsDir: '<%= yeoman.app %>/styles/fonts',
-        importPath: '<%= yeoman.app %>/components',
-        relativeAssets: true
-      },
-      dist: {},
-      server: {
-        options: {
-          debugInfo: true
-        }
-      }
     },
     concat: {
       dist: {
@@ -193,7 +172,6 @@ module.exports = function (grunt) {
 
   grunt.registerTask('run', [
     'clean:server',
-    'compass:server',
     'livereload-start',
     'watch'
   ]);
@@ -201,7 +179,6 @@ module.exports = function (grunt) {
   grunt.registerTask('build', [
     'clean:dist',
     'jshint',
-    'compass:dist',
     'useminPrepare',
     'imagemin',
     'cssmin',
