@@ -1,5 +1,8 @@
 (function() {
 
+    // Set default scene
+    var currentScene = $('.stage').find('.scene-1');
+
     $('.zone').each(function () {
       var $slide = $(this);
       $slide.css('top', ($slide.outerHeight() / 2) * -1);
@@ -8,7 +11,7 @@
     var numScenes = 2;
 
     function swapScene(offset) {
-        var currentScene = $('.stage').data('scene');
+        currentScene = $('.stage').data('scene');
         var nextScene = Math.min(Math.max(currentScene + offset, 1), numScenes);
         if (nextScene) {
             $('.stage').removeClass('show-scene-' + currentScene);
@@ -21,7 +24,7 @@
 
     function moveZone(direction) {
         // @todo Current scene
-        var current = $('.stage .scene .zone.present');
+        var current = currentScene.find('.zone.present');
 
         var zones = current.siblings();
         // Get the first one, as we may have two items that are in that direction
