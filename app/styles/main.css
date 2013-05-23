@@ -32,10 +32,17 @@ body {
   top: 50%;
   z-index: 1;
   text-align: center;
+  /*opacity: 0;
+  display: none;*/
 
   -webkit-transition: -webkit-perspective .4s ease;
   -webkit-perspective: 600px;
   -webkit-perspective-origin: 0px -100px;
+}
+
+.scene.is-current {
+  /*opacity: 1;
+  display: block;*/
 }
 
 .zone {

@@ -3,23 +3,33 @@
     // Set default scene
     var currentScene = $('.stage').find('.scene.is-current');
 
+    // Calculate top offset to vertically center zones
     $('.zone').each(function () {
       var $slide = $(this);
       $slide.css('top', ($slide.outerHeight() / 2) * -1);
     });
 
+    // We have to hide the other scenes after calcualting the top offset of
+    // each zone
+    currentScene.siblings().hide();
+
     var numScenes = 2;
 
     function swapScene(offset) {
-        debugger
+        var oldScene = currentScene;
         var currentSceneIndex = $('.stage').data('scene');
-        var nextScene = Math.min(Math.max(currentSceneIndex + offset, 1), numScenes);
-        if (nextScene) {
+        var nextSceneIndex = Math.min(Math.max(currentSceneIndex + offset, 1), numScenes);
+        if (nextSceneIndex) {
             $('.stage').removeClass('show-scene-' + currentSceneIndex);
             $('.stage .scene-'+currentSceneIndex).removeClass('is-current');
-            $('.stage').data('scene', nextScene);
-            $('.stage').addClass('show-scene-' + nextScene);
-            $('.stage .scene-'+nextScene).addClass('is-current');
+            $('.stage').data('scene', nextSceneIndex);
+            $('.stage').addClass('show-scene-' + nextSceneIndex);
+            oldScene.css('z-index', 100);
+            oldScene.fadeOut(function () {
+              oldScene.css('z-index', '')
+            });
+            currentScene = $('.stage .scene-'+nextSceneIndex).addClass('is-current');
+            currentScene.fadeIn();
         }
     }
 
