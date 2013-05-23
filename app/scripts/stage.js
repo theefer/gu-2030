@@ -28,7 +28,7 @@
             $('.stage').addClass('show-scene-' + nextSceneIndex);
             oldScene.css('z-index', 100);
             oldScene.fadeOut(function () {
-              oldScene.css('z-index', '')
+              oldScene.css('z-index', '');
             });
             currentScene = $('.stage .scene-'+nextSceneIndex).addClass('is-current');
             currentScene.fadeIn();
@@ -44,7 +44,7 @@
 
     function moveZone(direction) {
         // @todo Current scene
-        var oppositeDirection = oppositeDirections[direction]
+        var oppositeDirection = oppositeDirections[direction];
         var current = currentScene.find('.zone.present');
 
         var zones = current.siblings();

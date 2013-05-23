@@ -7,6 +7,7 @@ body {
   font-family: 'Helvetica Neue', Arial, sans-serif;
   line-height: 1.4;
   -webkit-font-smoothing: antialiased;
+  margin: 0;
 }
 
 h1, h2, h3,
@@ -16,12 +17,17 @@ p, pre, blockquote {
   margin-bottom: 1.3em;
 }
 
+h1, h2, h3 {
+  font-family: "ff-enzo-web", sans-serif;
+  font-weight: 600;
+}
+
 h1 {
   font-size: 2em;
 }
 
 h2 {
-  font-size: 1.7em;
+  font-size: 1.3em;
   font-weight: bold;
 }
 
@@ -81,7 +87,7 @@ a {
   height: 100%;
 }
 
-.scene {
+.zones {
   zoom: 2;
   position: absolute;
   width: 100%;
@@ -136,6 +142,47 @@ a {
   display: block;
   opacity: 0;
   -webkit-transform: translate3d(100%,0,0) rotateY(90deg) translate3d(100%,0,0);
+}
+
+.scene {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+}
+
+.scene-2 {
+  background-image: url('http://farm3.staticflickr.com/2651/3735776628_fe1f49d53c_o.jpg');
+}
+
+.overlay {
+  background-color: hsla(0, 0%, 0%, 0.8);
+  color: white;
+  border-radius: 10px;
+  width: 70%;
+  margin: auto;
+  padding: 1em;
+  box-shadow: 0 30px 70px hsla(0, 0%, 0%, 0.8);
+}
+
+.tweet {
+  margin-bottom: 1em;
+}
+
+.tweet img {
+  width: 60px;
+}
+
+.tweet p {
+  font-size: 0.8em;
+}
+
+.tweet__user-name {
+  font-weight: bold;
+}
+
+.tweet__username {
+  font-size: 0.8em;
 }
 
 
