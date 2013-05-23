@@ -57,6 +57,8 @@
         current.removeClass('present').addClass(direction);
     }
 
+
+
     // Leap
     var gestureStart;
 
@@ -98,7 +100,7 @@
     var controllerOptions = {enableGestures: true};
     Leap.loop(controllerOptions, function(frame) {
         if (! paused) {
-            console.log(frame);
+            // console.log(frame);
         }
 
         if (frame.gestures && frame.gestures.length > 0) {
@@ -126,7 +128,13 @@
         }
 
         if (frame.fingers.length == 1) {
-            console.log(frame.fingers[0].tipPosition)
+            var fingerPos = frame.fingers[0].tipPosition;
+            var screenCoords = [
+                fingerPos[0] - 300,
+                400 - fingerPos[1]
+            ];
+            // console.log(frame.fingers[0].tipPosition)
+            console.log(screenCoords)
         }
     });
 
