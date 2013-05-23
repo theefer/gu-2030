@@ -152,3 +152,19 @@ a {
 .finger.is-visible {
     display: block;
 }
+
+
+
+.story {
+    clear: both;
+} 
+.story-item {
+    float: left;
+} 
+
+
+ul, li {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
