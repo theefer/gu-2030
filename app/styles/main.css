@@ -155,6 +155,10 @@ a {
   z-index: 5;
 }
 
+.scene {
+  background-size: contain;
+}
+
 .scene-2 {
   background-image: url('http://farm3.staticflickr.com/2651/3735776628_fe1f49d53c_o.jpg');
 }
