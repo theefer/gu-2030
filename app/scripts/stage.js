@@ -15,12 +15,36 @@
         }
     }
 
+    function moveZone(direction) {
+        var current = $('.stage .scene.is-current');
+            // switch(direction) {
+            // case 'left':
+            //     break;
+            // case 'right':
+            //     break;
+            // case 'up':
+            //     break;
+            // case 'down':
+            //     break;
+            // }
+        // TODO: ?
+    }
+
+    // Leap
+    var controllerOptions = {enableGestures: true};
+    Leap.loop(controllerOptions, function(frame) {
+        if (frame.gestures.length > 0) {
+            console.log(frame.gestures)
+        }
+    });
+
+    // Keyboard nav
     $(document.documentElement).bind('keydown', function(e) {
         var direction = {
             37: 'left',
-            38: 'top',
+            38: 'up',
             39: 'right',
-            40: 'bottom'
+            40: 'down'
         }[e.keyCode];
         var shift = e.shiftKey;
 
@@ -31,13 +55,7 @@
                 swapScene(+1);
             }
         } else {
-            // TODO: change zone
-            if (direction == 'left') {
-                
-            } else if (direction == 'right') {
-            }
-            var current = $('.stage .scene.is-current');
-
+            moveZone(direction);
         }
 
     });
