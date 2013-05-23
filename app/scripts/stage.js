@@ -105,31 +105,10 @@
             console.log(frame);
         }
 
-        if (frame.gestures && frame.gestures.length > 0) {
-            var startSwipeGestures = _.filter(frame.gestures, function(g) {
-                return g.state == 'start' && g.type == 'swipe';
-            });
-            var stopSwipeGestures = _.filter(frame.gestures, function(g) {
-                return g.state == 'stop' && g.type == 'swipe';
-            });
-            if (startSwipeGestures.length > 0 && ! gestureStart) {
-                // if starting gestures and not already tracking some
-                gestureStart = startSwipeGestures[0];
-                gestureStart.handCount = frame.hands.length;
-            } else if (stopSwipeGestures.length > 0 && gestureStart) {
-                // if stopping gestures and some was started
-                var stoppedGesture = _.find(stopSwipeGestures, function(g) {
-                    return g.id == gestureStart.id;
-                });
-                // if stopping a started gesture
-                if (stoppedGesture) {
-                    handleSwipe(gestureStart, stoppedGesture);
-                    gestureStart = null;
-                }
-            }
-        }
-
-        if (frame.fingers.length == 1) {
+        var fingerCount = frame.fingers.length;
+        var firstFinger = frame.fingers[0];
+        // if only one finger, beyond the sensor
+        if (fingerCount == 1 && firstFinger.tipPosition[2] < 0) {
             var fingerPos = frame.fingers[0].tipPosition;
             var screenWidth = document.body.clientWidth;
             var screenHeight = document.body.clientHeight;
@@ -140,6 +119,34 @@
             finger.css('top', screenCoords[1]);
             finger.css('left', screenCoords[0]);
             // console.log(frame.fingers[0].tipPosition)
+            finger.addClass('is-visible');
+
+        } else {
+            finger.removeClass('is-visible');
+
+            if (frame.gestures && frame.gestures.length > 0) {
+                var startSwipeGestures = _.filter(frame.gestures, function(g) {
+                    return g.state == 'start' && g.type == 'swipe';
+                });
+                var stopSwipeGestures = _.filter(frame.gestures, function(g) {
+                    return g.state == 'stop' && g.type == 'swipe';
+                });
+                if (startSwipeGestures.length > 0 && ! gestureStart) {
+                    // if starting gestures and not already tracking some
+                    gestureStart = startSwipeGestures[0];
+                    gestureStart.handCount = frame.hands.length;
+                } else if (stopSwipeGestures.length > 0 && gestureStart) {
+                    // if stopping gestures and some was started
+                    var stoppedGesture = _.find(stopSwipeGestures, function(g) {
+                        return g.id == gestureStart.id;
+                    });
+                    // if stopping a started gesture
+                    if (stoppedGesture) {
+                        handleSwipe(gestureStart, stoppedGesture);
+                        gestureStart = null;
+                    }
+                }
+            }
         }
     });
 
