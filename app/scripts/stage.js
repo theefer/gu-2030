@@ -58,10 +58,75 @@
     }
 
     // Leap
+    var gestureStart;
+
+    var paused = false; // for debug
+
+    function vector(start, end) {
+        var diff = [
+            end[0] - start[0],
+            end[1] - start[1],
+            end[2] - start[2]
+        ];
+        var direction;
+        var mainAxis = Math.abs(diff[0]) > Math.abs(diff[1]) ? 'x' : 'y';
+        if (mainAxis == 'x') {
+            direction = (diff[0] > 0) ? 'right' : 'left';
+        } else {
+            direction = (diff[1] > 0) ? 'up' : 'down';
+        }
+        return {
+            diff: diff,
+            direction: direction
+        };
+    }
+
+    function handleSwipe(start, end) {
+        var v = vector(end.startPosition, end.position);
+        console.log("GESTURE", v.direction, start.handCount) // start, end
+        if (start.handCount > 1) {
+            if (v.direction == 'left') {
+                swapScene(1);
+            } else if (v.direction == 'right') {
+                swapScene(-1);
+            }
+        } else {
+            moveZone(v.direction);
+        }
+    }
+
     var controllerOptions = {enableGestures: true};
     Leap.loop(controllerOptions, function(frame) {
-        if (frame.gestures.length > 0) {
-            console.log(frame.gestures)
+        if (! paused) {
+            console.log(frame);
+        }
+
+        if (frame.gestures && frame.gestures.length > 0) {
+            var startSwipeGestures = _.filter(frame.gestures, function(g) {
+                return g.state == 'start' && g.type == 'swipe';
+            });
+            var stopSwipeGestures = _.filter(frame.gestures, function(g) {
+                return g.state == 'stop' && g.type == 'swipe';
+            });
+            if (startSwipeGestures.length > 0 && ! gestureStart) {
+                // if starting gestures and not already tracking some
+                gestureStart = startSwipeGestures[0];
+                gestureStart.handCount = frame.hands.length;
+            } else if (stopSwipeGestures.length > 0 && gestureStart) {
+                // if stopping gestures and some was started
+                var stoppedGesture = _.find(stopSwipeGestures, function(g) {
+                    return g.id == gestureStart.id;
+                });
+                // if stopping a started gesture
+                if (stoppedGesture) {
+                    handleSwipe(gestureStart, stoppedGesture);
+                    gestureStart = null;
+                }
+            }
+        }
+
+        if (frame.fingers.length == 1) {
+            console.log(frame.fingers[0].tipPosition)
         }
     });
 
@@ -75,14 +140,21 @@
         }[e.keyCode];
         var shift = e.shiftKey;
 
-        if (shift) {
-            if (direction == 'left') {
-                swapScene(-1);
-            } else if (direction == 'right') {
-                swapScene(+1);
+        if (direction) {
+            if (shift) {
+                if (direction == 'left') {
+                    swapScene(-1);
+                } else if (direction == 'right') {
+                    swapScene(+1);
+                }
+            } else {
+                moveZone(direction);
             }
-        } else {
-            moveZone(direction);
+        }
+
+        var space = e.keyCode == 32;
+        if (space) {
+            paused = ! paused;
         }
 
     });
