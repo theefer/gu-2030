@@ -17,7 +17,7 @@
     // each zone
     currentScene.siblings().hide();
 
-    var numScenes = 2;
+    var numScenes = $('.scene').length;
 
     function swapScene(offset) {
         var oldScene = currentScene;
