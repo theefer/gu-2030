@@ -42,7 +42,7 @@ h4, h5, h6 {
 }
 
 a {
-  color: hsl(206, 49%, 32%);
+  color: hsl(206, 49%, 62%);
   text-decoration: none;
 
   &:hover {
