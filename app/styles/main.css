@@ -1,20 +1,78 @@
-/*.stage .scene {
-    display: none;
-}
-
-.stage.show-scene-1 .scene.scene-1,
-.stage.show-scene-2 .scene.scene-2 {
-    display: block;
-}
-
-*/
-
 body {
   position: absolute;
   width: 100%;
   height: 100%;
   overflow: hidden;
-  font-size: 34px;
+  font-size: 30px;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3,
+h4, h5, h6,
+p, pre, blockquote {
+  margin-top: 0;
+  margin-bottom: 1.3em;
+}
+
+h1 {
+  font-size: 2em;
+}
+
+h2 {
+  font-size: 1.7em;
+  font-weight: bold;
+}
+
+h3 {
+  font-size: 1.35em;
+  line-height: 1.2;
+  font-weight: bold;
+}
+
+h4, h5, h6 {
+  font-size: 1.1em;
+}
+
+a {
+  color: hsl(206, 49%, 32%);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.media {
+    display: block;
+    overflow: hidden;
+}
+
+.media__img {
+    float: left;
+    margin-right: 1em;
+}
+/**
+ * Reversed image location (right instead of left).
+ */
+.media__img--rev {
+    float: right;
+    margin-left: 1em;
+}
+
+.media__img img,
+.media__img--rev img {
+    display: block;
+}
+
+.media__body {
+    overflow: hidden;
+}
+
+.media__body,
+.media__body > :last-child {
+    margin-bottom: 0;
 }
 
 .cube {
@@ -24,25 +82,16 @@ body {
 }
 
 .scene {
-  zoom: 0.7;
+  zoom: 2;
   position: absolute;
   width: 100%;
   height: 100%;
   left: 50%;
   top: 50%;
   z-index: 1;
-  text-align: center;
-  /*opacity: 0;
-  display: none;*/
-
   -webkit-transition: -webkit-perspective .4s ease;
   -webkit-perspective: 600px;
   -webkit-perspective-origin: 0px -100px;
-}
-
-.scene.is-current {
-  /*opacity: 1;
-  display: block;*/
 }
 
 .zone {
@@ -52,10 +101,7 @@ body {
   padding: 20px 0;
   z-index: 10;
   left: -50%;
-  min-height: auto!important;
-
   -webkit-transform-style: preserve-3d;
-
   -webkit-transition: -webkit-transform-origin 800ms cubic-bezier(0.260, 0.860, 0.440, 0.985),
             -webkit-transform 800ms cubic-bezier(0.260, 0.860, 0.440, 0.985),
             visibility 800ms cubic-bezier(0.260, 0.860, 0.440, 0.985),
