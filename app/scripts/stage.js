@@ -57,8 +57,17 @@
 
         if (!zone.length) { return; }
 
+        current.find('video').each(function(i, video) {
+            video.pause();
+        });
+
         zone.removeClass(oppositeDirection).addClass('present');
         current.removeClass('present').addClass(direction);
+
+        // start playing all videos in the zone
+        zone.find('video').each(function(i, video) {
+            video.play();
+        });
 
         if (zone.hasClass('zone-now')) {
             isNowZone = true;
