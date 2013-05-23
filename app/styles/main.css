@@ -209,6 +209,24 @@ a {
     float: left;
 } 
 
+.kicker {
+    background-color: red;
+    color: white;
+    padding: 2px 5px;
+    float: right;
+    text-transform: capitalize;
+}
+
+.sport-score {
+    font-weight: 700;
+    color: white;
+    background-color: black;
+    padding: 2px 5px;
+}
+
+.story-football .story-item-main {
+    background: url(../images/football.jpg) no-repeat;
+}
 
 ul, li {
     margin: 0;
