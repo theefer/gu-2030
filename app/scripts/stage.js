@@ -1,5 +1,7 @@
 (function() {
 
+    var finger = $('.finger');
+
     // Set default scene
     var currentScene = $('.stage').find('.scene.is-current');
 
@@ -57,11 +59,94 @@
         current.removeClass('present').addClass(direction);
     }
 
+
+
     // Leap
+    var gestureStart;
+
+    var paused = true; // for debug
+
+    function vector(start, end) {
+        var diff = [
+            end[0] - start[0],
+            end[1] - start[1],
+            end[2] - start[2]
+        ];
+        var direction;
+        var mainAxis = Math.abs(diff[0]) > Math.abs(diff[1]) ? 'x' : 'y';
+        if (mainAxis == 'x') {
+            direction = (diff[0] > 0) ? 'right' : 'left';
+        } else {
+            direction = (diff[1] > 0) ? 'up' : 'down';
+        }
+        return {
+            diff: diff,
+            direction: direction
+        };
+    }
+
+    function handleSwipe(start, end) {
+        var v = vector(end.startPosition, end.position);
+        console.log("GESTURE", v.direction, start.handCount) // start, end
+        if (start.handCount > 1) {
+            if (v.direction == 'left') {
+                swapScene(1);
+            } else if (v.direction == 'right') {
+                swapScene(-1);
+            }
+        } else {
+            moveZone(v.direction);
+        }
+    }
+
     var controllerOptions = {enableGestures: true};
     Leap.loop(controllerOptions, function(frame) {
-        if (frame.gestures.length > 0) {
-            console.log(frame.gestures)
+        if (! paused) {
+            console.log(frame);
+        }
+
+        var fingerCount = frame.fingers.length;
+        var firstFinger = frame.fingers[0];
+        // if only one finger, beyond the sensor
+        if (fingerCount == 1 && firstFinger.tipPosition[2] < 0) {
+            var fingerPos = frame.fingers[0].tipPosition;
+            var screenWidth = document.body.clientWidth;
+            var screenHeight = document.body.clientHeight;
+            var screenCoords = [
+                ((fingerPos[0] + 300) / 600) * screenWidth,
+                ((500 - fingerPos[1]) / 500 ) * screenHeight
+            ];
+            finger.css('top', screenCoords[1]);
+            finger.css('left', screenCoords[0]);
+            // console.log(frame.fingers[0].tipPosition)
+            finger.addClass('is-visible');
+
+        } else {
+            finger.removeClass('is-visible');
+
+            if (frame.gestures && frame.gestures.length > 0) {
+                var startSwipeGestures = _.filter(frame.gestures, function(g) {
+                    return g.state == 'start' && g.type == 'swipe';
+                });
+                var stopSwipeGestures = _.filter(frame.gestures, function(g) {
+                    return g.state == 'stop' && g.type == 'swipe';
+                });
+                if (startSwipeGestures.length > 0 && ! gestureStart) {
+                    // if starting gestures and not already tracking some
+                    gestureStart = startSwipeGestures[0];
+                    gestureStart.handCount = frame.hands.length;
+                } else if (stopSwipeGestures.length > 0 && gestureStart) {
+                    // if stopping gestures and some was started
+                    var stoppedGesture = _.find(stopSwipeGestures, function(g) {
+                        return g.id == gestureStart.id;
+                    });
+                    // if stopping a started gesture
+                    if (stoppedGesture) {
+                        handleSwipe(gestureStart, stoppedGesture);
+                        gestureStart = null;
+                    }
+                }
+            }
         }
     });
 
@@ -75,14 +160,21 @@
         }[e.keyCode];
         var shift = e.shiftKey;
 
-        if (shift) {
-            if (direction == 'left') {
-                swapScene(-1);
-            } else if (direction == 'right') {
-                swapScene(+1);
+        if (direction) {
+            if (shift) {
+                if (direction == 'left') {
+                    swapScene(-1);
+                } else if (direction == 'right') {
+                    swapScene(+1);
+                }
+            } else {
+                moveZone(direction);
             }
-        } else {
-            moveZone(direction);
+        }
+
+        var space = e.keyCode == 32;
+        if (space) {
+            paused = ! paused;
         }
 
     });
