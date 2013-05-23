@@ -1,5 +1,7 @@
 (function() {
 
+    var finger = $('.finger');
+
     // Set default scene
     var currentScene = $('.stage').find('.scene.is-current');
 
@@ -62,7 +64,7 @@
     // Leap
     var gestureStart;
 
-    var paused = false; // for debug
+    var paused = true; // for debug
 
     function vector(start, end) {
         var diff = [
@@ -100,7 +102,7 @@
     var controllerOptions = {enableGestures: true};
     Leap.loop(controllerOptions, function(frame) {
         if (! paused) {
-            // console.log(frame);
+            console.log(frame);
         }
 
         if (frame.gestures && frame.gestures.length > 0) {
@@ -129,12 +131,15 @@
 
         if (frame.fingers.length == 1) {
             var fingerPos = frame.fingers[0].tipPosition;
+            var screenWidth = document.body.clientWidth;
+            var screenHeight = document.body.clientHeight;
             var screenCoords = [
-                fingerPos[0] - 300,
-                400 - fingerPos[1]
+                ((fingerPos[0] + 300) / 600) * screenWidth,
+                ((500 - fingerPos[1]) / 500 ) * screenHeight
             ];
+            finger.css('top', screenCoords[1]);
+            finger.css('left', screenCoords[0]);
             // console.log(frame.fingers[0].tipPosition)
-            console.log(screenCoords)
         }
     });
 

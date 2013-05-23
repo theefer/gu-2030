@@ -91,3 +91,9 @@ body {
   opacity: 0;
   -webkit-transform: translate3d(100%,0,0) rotateY(90deg) translate3d(100%,0,0);
 }
+
+
+
+.finger {
+    position: absolute;
+}
