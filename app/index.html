@@ -1,8 +1,5 @@
 <!doctype html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<html>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -13,8 +10,9 @@
     <!-- build:css styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
+    <script src="components/jquery/jquery.min.js"></script>
   </head>
-  <body ng-app="gu2030App">
+  <body>
     <!--[if lt IE 7]>
       <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
     <![endif]-->
@@ -25,16 +23,42 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="container" ng-view></div>
+    <div class="stage show-scene-1" data-scene="1">
+      <div class="scene scene-1">
+        Scene 1
+        <div class="zone zone-now">
+          <p>now</p>
+        </div>
+        <div class="zone zone-track">
+          <p>track</p>
+        </div>
+        <div class="zone zone-context">
+          <p>context</p>
+        </div>
+        <div class="zone zone-depth">
+          <p>depth</p>
+        </div>
+      </div>
 
-    <script src="components/angular/angular.js"></script>
-    <script src="components/angular-resource/angular-resource.js"></script>
-    <script src="components/angular-cookies/angular-cookies.js"></script>
-    <script src="components/angular-sanitize/angular-sanitize.js"></script>
+      <div class="scene scene-2">
+        Scene 2
+        <div class="zone zone-now">
+          <p>now</p>
+        </div>
+        <div class="zone zone-track">
+          <p>track</p>
+        </div>
+        <div class="zone zone-context">
+          <p>context</p>
+        </div>
+        <div class="zone zone-depth">
+          <p>depth</p>
+        </div>
+      </div>
+    </div>
 
     <!-- build:js scripts/scripts.js -->
-    <script src="scripts/app.js"></script>
-    <script src="scripts/controllers/main.js"></script>
+    <script src="scripts/stage.js"></script>
     <!-- endbuild -->
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
