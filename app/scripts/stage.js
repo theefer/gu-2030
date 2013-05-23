@@ -33,26 +33,28 @@
         }
     }
 
+    var oppositeDirections = {
+      'left': 'right',
+      'right': 'left',
+      'up': 'down',
+      'down': 'up'
+    };
+
     function moveZone(direction) {
         // @todo Current scene
+        var oppositeDirection = oppositeDirections[direction]
         var current = currentScene.find('.zone.present');
 
         var zones = current.siblings();
         // Get the first one, as we may have two items that are in that direction
-        var zone = zones.filter('.' + direction).eq(0);
+        var zone = zones.filter('.' + oppositeDirection).eq(0);
 
         if (!current.hasClass('middle') && !zone.hasClass('middle')) { return; }
 
         if (!zone.length) { return; }
 
-        zone.removeClass(direction).addClass('present');
-        var oppositeDirection = {
-          'left': 'right',
-          'right': 'left',
-          'up': 'down',
-          'down': 'up'
-        };
-        current.removeClass('present').addClass(oppositeDirection[direction]);
+        zone.removeClass(oppositeDirection).addClass('present');
+        current.removeClass('present').addClass(direction);
     }
 
     // Leap
