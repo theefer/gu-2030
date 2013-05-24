@@ -199,6 +199,50 @@ a {
   box-shadow: 0 30px 70px hsla(0, 0%, 0%, 0.8);
 }
 
+.top-overlay {
+  position: absolute;
+  top: -30px;
+  z-index: 500;
+  left: -130px;
+}
+
+.top-overlay h1 {
+  margin-bottom: 0;
+}
+
+.left-overlay {
+  position: absolute;
+  left: -170px;
+  width: 350px;
+  top: 110px;
+  -webkit-transform: translateZ(0) rotateY(6deg) rotateZ(0deg);
+  -webkit-transform-origin-x: 0;
+}
+
+.right-overlay {
+  position: absolute;
+  right: -130px;
+  width: 350px;
+}
+
+.bottom-overlay {
+  position: absolute;
+  bottom: -30px;
+  left: 280px;
+}
+
+.l-scene-2-context-container {
+  height: 600px;
+  position: relative;
+  -webkit-perspective: 210;
+}
+
+.videos .meta {
+  display: block;
+  margin-bottom: 0.5em;
+  font-size: 0.8em;
+}
+
 
 .explainer {
     font-family: "ff-enzo-web", sans-serif;
@@ -342,7 +386,7 @@ a {
     padding: 2px 5px;
     position: absolute;
     top: 0;
-    right: 0;    
+    right: 0;
     text-transform: capitalize;
 }
 
