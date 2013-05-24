@@ -411,6 +411,7 @@ a {
 
 .tweet p {
   font-size: 0.8em;
+  margin-bottom: 8px;
 }
 
 .tweet__user-name {
