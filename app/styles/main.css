@@ -155,12 +155,25 @@ a {
   z-index: 5;
 }
 
-.scene {
+.scene,
+.scene-blur {
   background-size: cover;
 }
 
 .scene-1 {
   background-image: url('http://farm1.staticflickr.com/150/350856151_ff90a40fe7_o.jpg');
+}
+
+.scene-blur {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.scene-1 .scene-blur {
+  background-image: url('/images/scene-1-bg-blurred.jpg');
 }
 
 .scene-2 {
@@ -306,11 +319,11 @@ a {
       margin-left: -5.3em;
       box-shadow: 10px 10px 15px #666;
   }
- 
+
   70% {
       opacity: 1;
   }
- 
+
   100% {
       opacity: 0;
       display: none;
@@ -329,11 +342,11 @@ a {
   30% {
       opacity: 1;
   }
- 
+
   70% {
       opacity: 1;
   }
- 
+
   100% {
       opacity: 0;
       display: none;

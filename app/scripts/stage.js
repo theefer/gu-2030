@@ -59,6 +59,17 @@
 
         if (!current.hasClass('middle') && !zone.hasClass('middle')) { return; }
 
+        if (zone.hasClass('middle')) {
+            currentScene.find('.scene-blur').fadeOut(function () {
+                $(this).remove()
+            })
+            // currentScene.removeClass('is-showing-zone');
+        } else {
+            var blur = $('<div class="scene-blur"></div>').prependTo(currentScene).hide()
+            setTimeout(function () { blur.fadeIn(); }, 200);
+            // currentScene.addClass('is-showing-zone');
+        }
+
         if (!zone.length) { return; }
 
         current.find('video').each(function(i, video) {
