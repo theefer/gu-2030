@@ -4,10 +4,11 @@
 * Show "live review", animate as if happening
 * Match football score in 1st and second scene
 * Tidy up "now" in Tube scene
-* Tap score when notified to show goal replay
+* Add more explicit "Guardian" presence
 
 Nice to haves
 * Depth zone
 * Allow activating "now" items to expand them:
   - Reveal full quote
   - Reveal larger presentation of a story
+* Deploy to the Cloud?

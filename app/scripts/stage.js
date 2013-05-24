@@ -7,6 +7,9 @@
 
     var currentStory, isNowZone;
 
+    // id to play if asked to play
+    var canPlayId;
+
     // Calculate top offset to vertically center zones
     $('.zone').each(function () {
       var $slide = $(this);
@@ -75,6 +78,8 @@
             isNowZone = false;
             selectStory(null);
         }
+
+        canPlayId = zone.data('can-play');
     }
 
     function slideStory(storyNode, direction) {
@@ -95,8 +100,30 @@
             story.removeClass('is-right');
             story.addClass('is-center');
         }
-        console.log("swipe story", v.direction)
+        console.log("swipe story", direction)
     }
+
+    function hasReveal() {
+        return $('.reveal.visible').length > 0;
+    }
+    function reveal(id) {
+        if (hasReveal) {
+            hideReveal();
+        }
+
+        $(id).addClass('visible');
+        $(id).find('video').each(function(i, video) {
+            video.play();
+        });
+    }
+
+    function hideReveal() {
+        $('.reveal').removeClass('visible');
+        $('.reveal').find('video').each(function(i, video) {
+            video.play();
+        });
+    } 
+
 
     // Leap
     var gestureStart;
@@ -280,5 +307,73 @@
         if (zero) {
             $('.explainer-container').toggle();
         }
+
+        var s = e.keyCode == 83;
+        if (s) {
+            if (recognition) {
+                stopSpeech();
+            } else {
+                initSpeech();
+            }
+        }
     });
+
+
+    // Audio
+    // http://updates.html5rocks.com/2013/01/Voice-Driven-Web-Apps-Introduction-to-the-Web-Speech-API
+    var recognition;
+    function initSpeech() {
+        if (!('webkitSpeechRecognition' in window)) {
+            console.log("speechless")
+        } else {
+            recognition = new webkitSpeechRecognition();
+            recognition.continuous = true;
+            recognition.interimResults = true;
+
+            recognition.onstart = function() {
+                console.log("recognition started")
+            }
+            recognition.onresult = function(event) {
+                var interim_transcript = '';
+
+                for (var i = event.resultIndex; i < event.results.length; ++i) {
+                    if (event.results[i].isFinal) {
+                        console.log("final:", event.results[i][0].transcript);
+	                var text = document.createElement('h2');
+                        text.textContent = event.results[i][0].transcript;
+	                document.body.appendChild(text);
+                    } else {
+                        console.log("interim:", event.results[i][0].transcript);
+                        if (event.results[i][0].transcript.match('play')) {
+                            if (canPlayId) {
+                                reveal(canPlayId);
+                            }
+                        }
+                        if (event.results[i][0].transcript.match('dismiss') ||
+                            event.results[i][0].transcript.match('stop') ||
+                            event.results[i][0].transcript.match('close')) {
+                            if (hasReveal) {
+                                hideReveal();
+                            }
+                        }
+                    }
+                }
+            }
+            recognition.onerror = function(event) {
+            }
+            recognition.onend = function() {
+                console.log("recognition stopped")
+            }
+
+
+            recognition.lang = 'en-GB';
+            recognition.start();
+        }
+    }
+    function stopSpeech() {
+        if (recognition) {
+            recognition.stop();
+            recognition = null;
+        }
+    }
 })();
