@@ -266,7 +266,8 @@ a {
     width: 90%;
     margin: 3% auto;
     display: none;
-    z-index: 11;
+    z-index: 21;
+    position: relative;
 }
 .reveal.visible {
     display: block;
@@ -382,6 +383,22 @@ a {
     top: 50%;
     height: 100px;
     margin-top: -50px;
+}
+.main-title {
+    font-family: "ff-enzo-web", sans-serif;
+    position: absolute;
+    font-size: 9em;
+    font-weight: bold;
+    left: 50%;
+    top: 50%;
+    height: 250px;
+    line-height: 250px;
+    width: 570px;
+    margin-top: -125px;
+    margin-left: -285px;
+    text-align: center;
+    text-shadow: 4px 4px 2px #999;
+    background-color: rgba(220, 220, 220, 0.5);
 }
 
 .tweet {
@@ -526,6 +543,25 @@ a {
 }
 
 .jupiter-landing {
+}
+
+.venus-gallery {
+    background: url(http://upload.wikimedia.org/wikipedia/en/8/8d/Rocky_Mars_Surface.jpeg) no-repeat;
+    background-size: cover;
+    height: 155px;
+    width: 230px;
+}
+
+.match__summary h2 {
+    margin-bottom: 0;
+}
+
+#reveal-quote-asimov {
+    width: 70%;
+    margin-top: 10%;
+}
+#reveal-quote-asimov footer {
+    font-size: 120%;
 }
 
 .light-text {

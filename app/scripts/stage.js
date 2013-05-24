@@ -142,7 +142,7 @@
         return $('.reveal.visible').length > 0;
     }
     function reveal(id) {
-        if (hasReveal) {
+        if (hasReveal()) {
             hideReveal();
         }
 
@@ -222,9 +222,11 @@ console.log("CIRCLE", currentCircleable, clockwise)
             // clockwise = reveal details
             if (clockwise) {
                 var revealId = $(currentCircleable).data('reveal-id');
-                if (revealId) {
+                if (revealId && !hasReveal()) {
                     reveal(revealId);
-                }
+                } else if (hasReveal()) {
+                    hideReveal();
+                } 
 
             // anti-clockwise = track
             } else {
@@ -467,14 +469,14 @@ console.log("CIRCLE", currentCircleable, clockwise)
                     } else {
                         console.log("interim:", event.results[i][0].transcript);
                         if (event.results[i][0].transcript.match('play')) {
-                            if (canPlayId) {
+                            if (canPlayId && !hasReveal()) {
                                 reveal(canPlayId);
                             }
                         }
                         if (event.results[i][0].transcript.match('dismiss') ||
                             event.results[i][0].transcript.match('stop') ||
                             event.results[i][0].transcript.match('close')) {
-                            if (hasReveal) {
+                            if (hasReveal()) {
                                 hideReveal();
                             }
                         }
