@@ -211,9 +211,11 @@ console.log("CIRCLE", currentCircleable, clockwise)
             // clockwise = reveal details
             if (clockwise) {
                 var revealId = $(currentCircleable).data('reveal-id');
-                if (revealId) {
+                if (revealId && !hasReveal()) {
                     reveal(revealId);
-                }
+                } else if (hasReveal()) {
+                    hideReveal();
+                } 
 
             // anti-clockwise = track
             } else {
