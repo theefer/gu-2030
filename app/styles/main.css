@@ -333,6 +333,7 @@ a {
 
 .story-wrapper {
     overflow: hidden; /* poor man's clearfix */
+    overflow-x: auto;
 }
 
 .story {
@@ -501,6 +502,11 @@ blockquote {
 
 blockquote.minor {
     font-size: 50%;
+    padding-left: 40px;
+}
+
+blockquote.minor::before {
+  top: -30px;
 }
 
 blockquote::before {
