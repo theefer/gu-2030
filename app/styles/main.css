@@ -256,6 +256,17 @@ a {
   -webkit-perspective: 210;
 }
 
+.l-scene-3-context-container {
+  height: 600px;
+  position: relative;
+  -webkit-perspective: 210;
+}
+
+.l-scene-3-context-container img {
+  margin-top: 10px;
+  width: 100%;
+}
+
 .videos .meta {
   display: block;
   margin-bottom: 0.5em;
