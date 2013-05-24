@@ -199,6 +199,17 @@ a {
   box-shadow: 0 30px 70px hsla(0, 0%, 0%, 0.8);
 }
 
+.reveal {
+    width: 90%;
+    margin: 3% auto;
+    display: none;
+}
+.reveal.visible {
+    display: block;
+}
+.reveal video {
+    width: 100%;
+}
 
 .explainer {
     font-family: "ff-enzo-web", sans-serif;
