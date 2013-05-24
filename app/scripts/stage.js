@@ -72,6 +72,29 @@
             video.play();
         });
 
+        if (zone.hasClass('zone-context')) {
+            var quotes = zone.find('.friends-quotes')
+
+            var example1 = quotes.find('.tweet').first().clone();
+            var example2 = example1.clone();
+
+            example1.find('.tweet__avatar').attr('src', 'https://si0.twimg.com/profile_images/1428739215/image_normal.jpg');
+            example1.find('.tweet__user-name').text('Oliver Ash');
+            example1.find('p').text('Best. Gig. Ever.');
+
+            example2.find('.tweet__avatar').attr('src', 'https://si0.twimg.com/profile_images/3655991301/a50cb0c61e1bb65912d6ccf964089987_normal.jpeg');
+            example2.find('.tweet__user-name').text('Joel Vardy');
+            example2.find('p').text('I love this song! WOW! Thank you to Fever Play for tonight.');
+
+            setTimeout(function () {
+                example1.prependTo(quotes).hide().slideDown();
+            }, 2500);
+
+            setTimeout(function () {
+                example2.prependTo(quotes).hide().slideDown();
+            }, 4800)
+        }
+
         if (zone.hasClass('zone-now')) {
             isNowZone = true;
         } else {
@@ -89,7 +112,7 @@
         var isRight = story.hasClass('is-right');
         if (isLeft && direction == 'right') {
             story.removeClass('is-left');
-            story.addClass('is-center');           
+            story.addClass('is-center');
         } else if (isCenter && direction == 'left') {
             story.removeClass('is-center');
             story.addClass('is-left');
@@ -122,7 +145,7 @@
         $('.reveal').find('video').each(function(i, video) {
             video.play();
         });
-    } 
+    }
 
 
     // Leap
