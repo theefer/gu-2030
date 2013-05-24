@@ -149,6 +149,14 @@
     }
 
 
+    function popTrackingBubble() {
+        $('.tracking-bubble').addClass('pop-in');
+        setTimeout(function() {
+            $('.tracking-bubble').removeClass('pop-in');
+        }, 5000);
+    }
+
+
     // Leap
     var gestureStart;
 
@@ -210,8 +218,7 @@ console.log("CIRCLE", currentCircleable, clockwise)
             // anti-clockwise = track
             } else {
                 if ($(currentCircleable).hasClass('trackable')) {
-                    console.log("TRACK", $(currentCircleable).data('track-id'))
-                    console.log("track", currentCircleable)
+                    popTrackingBubble();
                 }
             }
 
@@ -367,7 +374,6 @@ console.log("CIRCLE", currentCircleable, clockwise)
         } else {
             // must be a hand swipe
             fingerAt();
-// console.log(fingerCount, firstFinger && firstFinger.tipPosition[2] < 0)
             gestureType = 'hand';
         }
 
