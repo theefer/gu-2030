@@ -508,6 +508,9 @@ a {
     opacity: 1;
 }
 
+.with-kicker {
+    padding-right: 80px;
+}
 
 .kicker {
     background-color: red;
