@@ -253,6 +253,7 @@ a {
     width: 90%;
     margin: 3% auto;
     display: none;
+    z-index: 11;
 }
 .reveal.visible {
     display: block;

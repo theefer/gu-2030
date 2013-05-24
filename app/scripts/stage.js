@@ -6,6 +6,7 @@
     var currentScene = $('.stage').find('.scene.is-current');
 
     var currentStory, isNowZone;
+    var currentCircleable;
 
     // id to play if asked to play
     var canPlayId;
@@ -174,7 +175,7 @@
 
     function handleSwipe(start, end, type) {
         var v = vector(end.startPosition, end.position);
-        console.log("GESTURE", type, v.direction, start.handCount) // start, end
+        console.log("SWIPE", type, v.direction, start.handCount) // start, end
 
         // started with more than one hand
         if (start.handCount > 1) {
@@ -194,6 +195,29 @@
         }
     }
 
+    function handleCircle(end, type) {
+        var clockwise = end.normal[2] < 0;
+console.log("CIRCLE", currentCircleable, clockwise)
+
+        if (currentCircleable) {
+            // clockwise = reveal details
+            if (clockwise) {
+                var revealId = $(currentCircleable).data('reveal-id');
+                if (revealId) {
+                    reveal(revealId);
+                }
+
+            // anti-clockwise = track
+            } else {
+                if ($(currentCircleable).hasClass('trackable')) {
+                    console.log("TRACK", $(currentCircleable).data('track-id'))
+                    console.log("track", currentCircleable)
+                }
+            }
+
+        }
+    }
+
     function fingerAt(pos) {
         if (pos) {
             finger.css('top', pos[1]);
@@ -206,6 +230,11 @@
                 if (story) {
                     selectStory(story);
                 }
+            }
+
+            var circleable = findCircleableAt(pos);
+            if (circleable) {
+                selectCircleable(circleable);
             }
         } else {
             finger.removeClass('is-visible');
@@ -230,8 +259,25 @@
         return s;
     }
 
+    function findCircleableAt(pos) {
+        var s;
+        var posX = pos[0], posY = pos[1];
+        currentScene.find('.zone.present .circleable, .zone.present.circleable').each(function(i, circleable) {
+            var ss = $(circleable);
+            var offset = ss.offset();
+            var storyTop = offset.top;
+            var storyLeft = offset.left;
+            var storyBottom = offset.top + ss.height();
+            var storyRight = offset.left + ss.width();
+            if (posX > storyLeft && posX < storyRight &&
+                posY > storyTop && posY < storyBottom) {
+                s = circleable;
+            }
+        });
+        return s;
+    }
+
     function selectStory(story) {
-        // console.log("select:", story);
         if (currentStory && currentStory !== story) {
             $(currentStory).removeClass('is-highlighted');
         }
@@ -239,6 +285,10 @@
         if (currentStory) {
             $(currentStory).addClass('is-highlighted');
         }
+    }
+
+    function selectCircleable(circleable) {
+        currentCircleable = circleable;
     }
 
 
@@ -263,8 +313,22 @@
                 if (stoppedGesture) {
                     var start = gestureStart;
                     gestureStart = null;
-                    return [start, stoppedGesture];
+                    return {
+                        type: 'swipe',
+                        start: start,
+                        end: stoppedGesture
+                    };
                 }
+            }
+
+            var stopCircleGestures = _.filter(frame.gestures, function(g) {
+                return g.state == 'stop' && g.type == 'circle';
+            });
+            if (stopCircleGestures.length > 0) {
+                return {
+                    type: 'circle',
+                    end: stopCircleGestures[0]
+                };
             }
         }
     }
@@ -309,7 +373,11 @@
 
         var gest = readGesture(frame);
         if (gest) {
-            handleSwipe(gest[0], gest[1], gestureType);
+            if (gest.type === 'swipe') {
+                handleSwipe(gest.start, gest.end, gestureType);
+            } else if (gest.type === 'circle') {
+                handleCircle(gest.end, gestureType);
+            }
         }
     });
 
