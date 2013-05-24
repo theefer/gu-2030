@@ -6,6 +6,7 @@
     var currentScene = $('.stage').find('.scene.is-current');
 
     var currentStory, isNowZone;
+    var currentCircleable;
 
     // id to play if asked to play
     var canPlayId;
@@ -148,6 +149,14 @@
     }
 
 
+    function popTrackingBubble() {
+        $('.tracking-bubble').addClass('pop-in');
+        setTimeout(function() {
+            $('.tracking-bubble').removeClass('pop-in');
+        }, 5000);
+    }
+
+
     // Leap
     var gestureStart;
 
@@ -174,21 +183,45 @@
 
     function handleSwipe(start, end, type) {
         var v = vector(end.startPosition, end.position);
-        console.log("GESTURE", type, v.direction, start.handCount) // start, end
-        if (type == 'finger') {
-            if (currentStory) {
-                slideStory(currentStory, v.direction);
+        console.log("SWIPE", type, v.direction, start.handCount) // start, end
+
+        // started with more than one hand
+        if (start.handCount > 1) {
+            if (v.direction == 'left') {
+                swapScene(1);
+            } else if (v.direction == 'right') {
+                swapScene(-1);
             }
-        } else if (type == 'hand') {
-            if (start.handCount > 1) {
-                if (v.direction == 'left') {
-                    swapScene(1);
-                } else if (v.direction == 'right') {
-                    swapScene(-1);
+        } else {
+            if (type == 'finger') {
+                if (currentStory) {
+                    slideStory(currentStory, v.direction);
                 }
-            } else {
+            } else if (type == 'hand') {
                 moveZone(v.direction);
             }
+        }
+    }
+
+    function handleCircle(end, type) {
+        var clockwise = end.normal[2] < 0;
+console.log("CIRCLE", currentCircleable, clockwise)
+
+        if (currentCircleable) {
+            // clockwise = reveal details
+            if (clockwise) {
+                var revealId = $(currentCircleable).data('reveal-id');
+                if (revealId) {
+                    reveal(revealId);
+                }
+
+            // anti-clockwise = track
+            } else {
+                if ($(currentCircleable).hasClass('trackable')) {
+                    popTrackingBubble();
+                }
+            }
+
         }
     }
 
@@ -204,6 +237,11 @@
                 if (story) {
                     selectStory(story);
                 }
+            }
+
+            var circleable = findCircleableAt(pos);
+            if (circleable) {
+                selectCircleable(circleable);
             }
         } else {
             finger.removeClass('is-visible');
@@ -228,8 +266,25 @@
         return s;
     }
 
+    function findCircleableAt(pos) {
+        var s;
+        var posX = pos[0], posY = pos[1];
+        currentScene.find('.zone.present .circleable, .zone.present.circleable').each(function(i, circleable) {
+            var ss = $(circleable);
+            var offset = ss.offset();
+            var storyTop = offset.top;
+            var storyLeft = offset.left;
+            var storyBottom = offset.top + ss.height();
+            var storyRight = offset.left + ss.width();
+            if (posX > storyLeft && posX < storyRight &&
+                posY > storyTop && posY < storyBottom) {
+                s = circleable;
+            }
+        });
+        return s;
+    }
+
     function selectStory(story) {
-        // console.log("select:", story);
         if (currentStory && currentStory !== story) {
             $(currentStory).removeClass('is-highlighted');
         }
@@ -237,6 +292,10 @@
         if (currentStory) {
             $(currentStory).addClass('is-highlighted');
         }
+    }
+
+    function selectCircleable(circleable) {
+        currentCircleable = circleable;
     }
 
 
@@ -261,10 +320,34 @@
                 if (stoppedGesture) {
                     var start = gestureStart;
                     gestureStart = null;
-                    return [start, stoppedGesture];
+                    return {
+                        type: 'swipe',
+                        start: start,
+                        end: stoppedGesture
+                    };
                 }
             }
+
+            var stopCircleGestures = _.filter(frame.gestures, function(g) {
+                return g.state == 'stop' && g.type == 'circle';
+            });
+            if (stopCircleGestures.length > 0) {
+                return {
+                    type: 'circle',
+                    end: stopCircleGestures[0]
+                };
+            }
         }
+    }
+
+    function getFarthestFinger(fingers) {
+        var farthest;
+        for (var i = 0, l = (fingers || []).length; i < l; i++) {
+            if (! farthest || fingers[i].tipPosition[2] < farthest.tipPosition[2]) {
+                farthest = fingers[i];
+            }
+        }
+        return farthest;
     }
 
     var controllerOptions = {enableGestures: true};
@@ -275,9 +358,10 @@
 
         var gestureType;
         var fingerCount = frame.fingers.length;
-        var firstFinger = frame.fingers[0];
-        // if only one finger, beyond the sensor
-        if (fingerCount == 1 && firstFinger.tipPosition[2] < 0) {
+        var farthestFinger = getFarthestFinger(frame.fingers);
+
+        // farthest finger beyond the sensor
+        if (farthestFinger && farthestFinger.tipPosition[2] < 0) {
             var fingerPos = frame.fingers[0].tipPosition;
             var screenWidth = document.body.clientWidth;
             var screenHeight = document.body.clientHeight;
@@ -287,15 +371,19 @@
             ];
             fingerAt(screenCoords);
             gestureType = 'finger';
-
         } else {
+            // must be a hand swipe
             fingerAt();
             gestureType = 'hand';
         }
 
         var gest = readGesture(frame);
         if (gest) {
-            handleSwipe(gest[0], gest[1], gestureType);
+            if (gest.type === 'swipe') {
+                handleSwipe(gest.start, gest.end, gestureType);
+            } else if (gest.type === 'circle') {
+                handleCircle(gest.end, gestureType);
+            }
         }
     });
 
