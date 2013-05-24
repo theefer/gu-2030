@@ -455,7 +455,7 @@ a {
     /* border: 1px solid red; */
     white-space: nowrap;
      overflow: hidden;
-    width: 2000px;
+    width: 2600px;
     position: relative;
 
   /* -webkit-transition: -webkit-perspective .4s ease; */
@@ -568,12 +568,6 @@ a {
     color: #ddd;
 }
 
-.story-robots .story-item-main {
-    background: url(http://farm4.static.flickr.com/3296/3119144658_b9dfe4a1b8.jpg) no-repeat;
-    background-size: cover;
-    height: 180px;
-}
-
 .avatar {
     width: 35px;
     height: 35px;
@@ -586,6 +580,8 @@ a {
     color: #669;
     text-align: center;
     font-weight: bold;
+    padding-top: 42px;
+    font-size: 2.5em;
 }
 
 ul, li {
@@ -634,6 +630,10 @@ blockquote footer {
 
 .heading {
   position: relative;
+}
+
+.heading--small {
+  font-size: 0.7em;
 }
 
 .heading__title {
