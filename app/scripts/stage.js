@@ -175,18 +175,20 @@
     function handleSwipe(start, end, type) {
         var v = vector(end.startPosition, end.position);
         console.log("GESTURE", type, v.direction, start.handCount) // start, end
-        if (type == 'finger') {
-            if (currentStory) {
-                slideStory(currentStory, v.direction);
+
+        // started with more than one hand
+        if (start.handCount > 1) {
+            if (v.direction == 'left') {
+                swapScene(1);
+            } else if (v.direction == 'right') {
+                swapScene(-1);
             }
-        } else if (type == 'hand') {
-            if (start.handCount > 1) {
-                if (v.direction == 'left') {
-                    swapScene(1);
-                } else if (v.direction == 'right') {
-                    swapScene(-1);
+        } else {
+            if (type == 'finger') {
+                if (currentStory) {
+                    slideStory(currentStory, v.direction);
                 }
-            } else {
+            } else if (type == 'hand') {
                 moveZone(v.direction);
             }
         }
@@ -267,6 +269,16 @@
         }
     }
 
+    function getFarthestFinger(fingers) {
+        var farthest;
+        for (var i = 0, l = (fingers || []).length; i < l; i++) {
+            if (! farthest || fingers[i].tipPosition[2] < farthest.tipPosition[2]) {
+                farthest = fingers[i];
+            }
+        }
+        return farthest;
+    }
+
     var controllerOptions = {enableGestures: true};
     Leap.loop(controllerOptions, function(frame) {
         if (! paused) {
@@ -275,9 +287,10 @@
 
         var gestureType;
         var fingerCount = frame.fingers.length;
-        var firstFinger = frame.fingers[0];
-        // if only one finger, beyond the sensor
-        if (fingerCount == 1 && firstFinger.tipPosition[2] < 0) {
+        var farthestFinger = getFarthestFinger(frame.fingers);
+
+        // farthest finger beyond the sensor
+        if (farthestFinger && farthestFinger.tipPosition[2] < 0) {
             var fingerPos = frame.fingers[0].tipPosition;
             var screenWidth = document.body.clientWidth;
             var screenHeight = document.body.clientHeight;
@@ -287,9 +300,10 @@
             ];
             fingerAt(screenCoords);
             gestureType = 'finger';
-
         } else {
+            // must be a hand swipe
             fingerAt();
+// console.log(fingerCount, firstFinger && firstFinger.tipPosition[2] < 0)
             gestureType = 'hand';
         }
 
